@@ -26,7 +26,7 @@ class HostPackerTests(unittest.TestCase):
             (source.parent/'2_sts_level_us_01_02.cfg').write_bytes(b'other slot')
             (source.parent/'1_fog_level_us_01_01.cfg').write_bytes(b'fog')
             (source.parent/'CommonSslSave.cfg').write_bytes(b'common')
-            originals={p:p.read_bytes() for p in source.parent.iterdir()}
+            originals={p.resolve():p.read_bytes() for p in source.parent.iterdir()}
             plan=build_plan(source)
             self.assertEqual(plan.slot,2);self.assertEqual(plan.account,'123')
             self.assertEqual({f.name for f in plan.files},{source.name,one.name,two.name})
@@ -40,7 +40,7 @@ class HostPackerTests(unittest.TestCase):
             inspection=inspect_archive(destination,load_bytes)
             self.assertEqual(inspection.saves[0].slot,2)
             bundle=prepare_bundle(inspection,inspection.saves[0])
-            try:self.assertEqual(bundle.save_path.read_bytes(),originals[source])
+            try:self.assertEqual(bundle.save_path.read_bytes(),originals[source.resolve()])
             finally:bundle.close()
             self.assertEqual(originals,{p:p.read_bytes() for p in originals})
             report=package_report(plan,destination)
@@ -123,4 +123,3 @@ def tearDownModule():
     _language_patch.stop()
 
 if __name__=='__main__':unittest.main()
-

@@ -37,7 +37,7 @@ class PackerLanguageTests(unittest.TestCase):
                 app.language.set('Deutsch');app.change_language()
                 deadline=time.monotonic()+5
                 while app.job is not None and time.monotonic()<deadline:root.update();time.sleep(.01)
-                self.assertIsNone(app.job);self.assertEqual(app.last_export,destination)
+                self.assertIsNone(app.job);self.assertEqual(app.last_export,destination.resolve())
                 self.assertEqual(app.files.item(node,'values')[3],'Gepackt')
                 app.language.set('Español');app.change_language()
                 self.assertEqual(app.files.item(node,'values')[3],'Empaquetado')
