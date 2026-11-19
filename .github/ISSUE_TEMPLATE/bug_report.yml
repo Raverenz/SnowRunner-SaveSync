@@ -1,0 +1,27 @@
+name: Bug report
+description: Report a problem without uploading private saves.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Application and version
+      placeholder: SaveSync or Host Packer, version, source or EXE
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Windows version, Steam/Epic, game version, NG+/normal mode, UI language.
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Reproduction and expected behavior
+      description: Include the exact error text. Redact personal file paths and account IDs. Do not attach real saves.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Additional evidence
+      description: Redacted screenshots or a minimal synthetic example. For antivirus findings include EXE SHA-256 and detection name.
