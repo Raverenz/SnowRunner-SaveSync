@@ -16,7 +16,7 @@ class PackerLanguageTests(unittest.TestCase):
                     self.assertFalse(any(c in translated for c in 'ąćęłńóśźżĄĆĘŁŃÓŚŹŻ'),repr(node.value))
     def test_switch_during_pack_preserves_files_progress_and_selection(self):
         with tempfile.TemporaryDirectory() as folder:
-            folder=Path(folder);settings=folder/'settings.json';source=folder/'CompleteSave.cfg'
+            folder=Path(folder).resolve();settings=folder/'settings.json';source=folder/'CompleteSave.cfg'
             data=json.dumps({'CompleteSave':{'SslValue':{'persistentProfileData':{'money':1234,'experience':6900,'rank':7}}}}).encode()+b'\x00'
             source.write_bytes(data);sts=folder/'sts_level_us_01_01.cfg';sts.write_bytes(b'STS bytes unchanged')
             plan=build_plan(source);destination=folder/'host.zip'
